@@ -1,13 +1,16 @@
 # loopback-lookup-server
 
-Objective - Create a lookup server with in-memory caching for a REST API using [loopback](https://loopback.io/)
+Objective - Create a lookup gateway with in-memory caching for a REST API service using [loopback](https://loopback.io/)
 
 # Overview
 This example demonstrates the use of loopback for creating REST services. It also demonstrates the basic usage of [loopback-connector-rest](https://github.com/strongloop/loopback-connector-rest).
 
 The example has two servers
-1. #api-server that will be our core product catalog exposed as REST service
-2. #api-gateway that will act as a gateway to our products service only exposing a look-up function
+1. # api-server 
+This will be our core product catalog exposed as REST service
+
+2. # api-gateway 
+This will act as a gateway to our products service only exposing a look-up function, we adorn it with in-memory caching that can very well be extended to REDIS or memcache based caching mechanisms.
  
 # api-server
 This is a REST service that doles out a product catalog. Using loopback to create a REST application for the products is quite simple, the following are the commands that were used in getting this setup. 
