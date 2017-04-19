@@ -1,0 +1,29 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "ProductRestService": {
+    "name": "ProductRestService",
+    "baseURL": "http://localhost:3000/api/products",
+    "crud": true,
+    "connector": "rest",
+    "options": {
+      "headers": {
+        "accept": "application/json",
+        "content-type": "application/json"
+      }
+    },
+    "operations": [
+      {
+        "functions": {
+          "getProducts": ["productId"]
+        },
+        "template": {
+          "method": "GET",
+          "url": "http://0.0.0.0:3000/api/products/{productId}"
+        }
+      }
+    ]
+  }
+}
