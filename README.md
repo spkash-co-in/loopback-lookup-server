@@ -1,7 +1,6 @@
 # loopback-lookup-server
 
-Objective - Create a lookup server with in-memory caching for a REST API using loopback. 
-[loopback](https://loopback.io/)
+Objective - Create a lookup server with in-memory caching for a REST API using [loopback](https://loopback.io/)
 
 # Overview
 This example demonstrates the use of loopback for creating REST services. It also demonstrates the basic usage of [loopback-connector-rest](https://github.com/strongloop/loopback-connector-rest). 
@@ -40,14 +39,16 @@ This section details the outbound REST connection that will be made from this se
 This section details the internal nodejs handle that will can be used to operate the REST endpoint exposed in the template section. In this example we are exposing `getProducts` method which takes in a `productId` which is passed a part of the url path as defined in the template section. 
 ![product REST datasource](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/productDataSource.png)
 
-4. ProductWrapper
+4. ## ProductWrapper
 We now create the model that exposes a remote method on this api-gateway. While generating this model we use the config options to mention that it is not connected to any datasource and will use the generic Model type provided by loopback. This will help create a non-persistent model object that work well for our look-up purpose. Again there are two points to note
 * ### lookup 
 We create our lookup function which essentially calls the productService.getProducts datasource method we defined in last section. A simple in-memory cache map serves our purpose of caching a first-time lookup on a productId.  
+
 ![lookup method](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/lookup.png)
 
 * ### remoteMethod
 Now we create the remote method that hooks with our lookup function that we want expose on the gateway
+
 ![lookup method remote](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/lookup-remote.png)
 
 # Run Instructions
@@ -63,7 +64,9 @@ Now we create the remote method that hooks with our lookup function that we want
 3. Run `node .`
 4. Browse `http://localhost:3020/explorer` for products lookup service
 5. Use the only exposed GET lookup method by providing the productId 
+
 ![prod lookup GET ](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/prodLookupGET.png)
 
 On the terminal you can check that the REST endpoint is called only one the first lookup, any further lookups are doled out from the cache.
 
+![product lookup from gateway](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/productLookup.png)
