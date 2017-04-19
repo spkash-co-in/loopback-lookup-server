@@ -79,8 +79,14 @@ Now we create the remote method that hooks with our lookup function that we want
 4. Browse `http://localhost:3020/explorer` for products lookup service
 5. Use the only exposed GET lookup method by providing the productId 
 
+## Gateway Explorer
 ![prod lookup GET ](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/prodLookupGET.png)
 
+## Lookup from Gateway
+![product lookup from gateway](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/productLookup.png)
+
+
+## Caching
 On the terminal you can check that the REST endpoint is called only on the first lookup of a particular productId, any further lookups on the same productId are doled out from the cache.
 
-![product lookup from gateway](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/productLookup.png)
+![cache](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/cache.png)
