@@ -1,35 +1,42 @@
 # loopback-lookup-server
 
-Objective - Create a lookup server with in-memory caching for a REST API using loopback. 
-[loopback](https://loopback.io/)
+Objective - Create a lookup server with in-memory caching for a REST API using [loopback](https://loopback.io/)
 
 # Overview
-This example demonstrates the use of loopback for creating REST services. It also demonstrates the basic usage of [loopback-connector-rest](https://github.com/strongloop/loopback-connector-rest). 
+This example demonstrates the use of loopback for creating REST services. It also demonstrates the basic usage of [loopback-connector-rest](https://github.com/strongloop/loopback-connector-rest).
 
 The example has two servers
+1. #api-server that will be our core product catalog exposed as REST service
+2. #api-gateway that will act as a gateway to our products service only exposing a look-up function
+ 
 # api-server
 This is a REST service that doles out a product catalog. Using loopback to create a REST application for the products is quite simple, the following are the commands that were used in getting this setup. 
 1. ### `lb app api-server`
 Creates an api-server application with the requisite node-js code. A series of questions regarding config are requested - for the type of application we use the hello-world which will generate the requisite REST and Datasource related code.
+
 ![lb app api-server](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/lbapp.png)
 
 2. ### `lb model` 
 Creates the model objects, a simple product object would look like below
+
 ![lb app model](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/lbmodel.png)
 
 3. ### REST endpoint generated
 We can run the server at this stage with `node .` command in the api-server folder. Accessing `http://localhost:3000/explorer/#/product` gives us the explorer that we can use to work with the REST endpoint generated for the model. 
+
 ![product REST endpoint](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/productsREST.png)
 
 # api-gateway
 This is a look-up service that demonstrates the usage of [loopback-connector-rest](https://github.com/strongloop/loopback-connector-rest). It exposes a single GET endpoint to the external user for looking up a product by id. On the back-end it connects to the `api-service` using the rest-connector loopback provides.  
 
 1. ## `lb app api-gateway`
-This time we will create an api-server that will connect to our products service. The config options will look as shown below. One point to note is that the generated code here will also be using port 3000, but we change this to 3020 in config.json as our products service already runs on port 3000.
+This time we will choose `api-server` as application type to indicate that we are creating a simple gateway. The config options will look as shown below. One point to note is that the generated code here will also be using port 3000, but we change this to 3020 in config.json as our products service already runs on port 3000.
+
 ![lb app gw](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/lbapp-gw.png)
 
 2. ## `lb datasource`
 The next step is to create a datasource that will hook on to our products service. The config options should look as shown below
+
 ![lb gw datasource](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/lbdatasource.png)
 
 3. ## Exposing our datasource
@@ -39,6 +46,7 @@ The datasource we created needs to be updated to expose the GET method of our pr
 This section details the outbound REST connection that will be made from this service. We provide it with the GET as method and the url we will be using.
 * ### functions
 This section details the internal nodejs handle that will can be used to operate the REST endpoint exposed in the template section. In this example we are exposing `getProducts` method which takes in a `productId` which is passed a part of the url path as defined in the template section. 
+
 ![product REST datasource](https://github.com/spkash-co-in/loopback-lookup-server/blob/master/productDataSource.png)
 
 4. ## ProductWrapper
